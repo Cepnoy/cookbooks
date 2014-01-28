@@ -1,0 +1,15 @@
+Vagrant::Config.run do |config|
+  config.vm.host_name = "disco-master-node"
+  config.vm.box = "debian-64-stable"
+  config.vm.box_url = "https://dl.dropboxusercontent.com/u/13054557/vagrant_boxes/debian-squeeze.box"
+  config.vm.forward_port 8989, 8989
+  config.vm.forward_port 8990, 8990
+  config.vm.forward_port 4369, 4369
+  config.vm.forward_port 30000, 30000
+  
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = "../"
+    chef.add_recipe("disco::master")
+  end
+end
+
